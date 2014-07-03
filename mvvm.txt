@@ -8,3 +8,5 @@ viewModel : viewModelBase
 и в сеттере 
 Set(ref _result, value)
 
+
+2nd commit
