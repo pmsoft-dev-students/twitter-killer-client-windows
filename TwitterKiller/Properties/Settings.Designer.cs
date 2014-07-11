@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Twitter_Killer.Properties
+namespace TwitterKiller.Properties
 {
 
 

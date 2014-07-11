@@ -1,0 +1,134 @@
+﻿<Window x:Class="TwitterKiller.UserView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:twitterKiller="clr-namespace:TwitterKiller"
+        WindowState="Maximized"
+        Title="Twitter Killer" Height="500" Width="800" MinWidth="800" MinHeight="500"
+        >
+    <Window.Background>
+        <VisualBrush TileMode="None" Stretch="None">
+            <VisualBrush.Visual>
+                <Image Stretch="None"
+                       Source="TwitterKillerBackground.png"
+                       ></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Window.Background>
+    <Grid Margin="0,0,0,0" MaxWidth="800" VerticalAlignment="Stretch"  Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="530" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0" Margin="5"  Source="TwitterKillerLogo.png"/>
+
+        <TextBlock
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Foreground="White"
+            FontSize="30"
+            Text="{Binding UserName}" />
+
+        <StackPanel Grid.Column="2" Grid.Row="0">
+            <Button
+                Margin="25,10"
+                Focusable="False"
+                Content="Register"
+                Foreground="White" FontSize="14"
+
+                Background="Black"
+                BorderBrush="White"
+                Height="30" Width="100"
+                Command="{Binding RegisterButtonClickCommand}" />
+
+            <Button
+                Focusable="False"
+                Content="Login"
+                Foreground="White" FontSize="14"
+                Background="Black"
+                BorderBrush="White"
+                Height="30" Width="100"
+                Command="{Binding LoginButtonClickCommand}" />
+        </StackPanel>
+
+        <TextBox BorderThickness="2" BorderBrush="Tomato"
+                 Grid.Column="1" Grid.Row="1"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch"
+                 Background="White" Foreground="Black"
+                 Text="{Binding TweetText, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap" AcceptsReturn="True" />
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="480" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1"
+                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                   Foreground="Tomato"
+                   Content="{Binding CharsLeft}" />
+            <Label Grid.Column="0"
+                   Height="30" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                   Foreground="Tomato"
+                   Content="{Binding ErrorMessage}" />
+        </Grid>
+
+        <Button Grid.Row="1" Grid.Column="2"
+                Focusable="False"
+                IsEnabled="{Binding IsEnabledSendTweet}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="100" Height="30"
+                BorderBrush="White"
+                Background="#00aced"
+                Foreground="White"
+                FontSize="16" Content="Send!"
+                Command="{Binding SendTweet}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" Value="Black"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+            </Button.Style>
+        </Button>
+
+        <ListView Grid.Column="1" Grid.Row="3"
+         Background="Black"
+         BorderBrush="Tomato"
+                  Margin="0,0,0,10"
+         HorizontalAlignment="Stretch"
+         VerticalAlignment="Stretch"
+ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+         ItemsSource="{Binding TweetList}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="twitterKiller:Tweet">
+                    <StackPanel>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="420" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{Binding Date, StringFormat=dd MMM HH:mm:ss}" Foreground="Tomato"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding Text}" Foreground="White"/>
+                        </Grid>
+                        <Separator></Separator>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
